@@ -1,60 +1,59 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 
-#define ITEM_COUNT 3
+#define ITEM_COUNT 3 // ìŒë£Œ ê°œìˆ˜
 
-void showMenu(char* items[], int* prices);
+void showMenu(char* items[], int* prices, int money);
 int buyDrink(int* money, int* prices, int choice);
 
 int main() {
-    char* items[ITEM_COUNT] = { "Äİ¶ó", "»çÀÌ´Ù", "Ä¿ÇÇ" };
+    char* items[ITEM_COUNT] = { "ì½œë¼", "ì‚¬ì´ë‹¤", "ì»¤í”¼" };
     int prices[ITEM_COUNT] = { 1200, 1000, 800 };
     int money;
     int choice;
 
-    printf("=== Æ÷ÀÎÅÍ ÀÚÆÇ±â ===\n");
-    printf("±İ¾×À» ³Ö¾îÁÖ¼¼¿ä: ");
+    printf("=== í¬ì¸í„° ìíŒê¸° ===\n");
+    printf("ê¸ˆì•¡ì„ ë„£ì–´ì£¼ì„¸ìš”: ");
     scanf("%d", &money);
 
     while (1) {
-        showMenu(items, prices);
-        printf("¹øÈ£ ¼±ÅÃ (0: Á¾·á): ");
+        showMenu(items, prices, money);
+        printf("ë²ˆí˜¸ ì„ íƒ (0: ì¢…ë£Œ): ");
         scanf("%d", &choice);
 
         if (choice == 0) {
-            printf("ÇÁ·Î±×·¥ Á¾·á!\n");
+            printf("í”„ë¡œê·¸ë¨ ì¢…ë£Œ!\n");
             break;
         }
 
         if (choice < 1 || choice > ITEM_COUNT) {
-            printf("Àß¸øµÈ ¼±ÅÃÀÔ´Ï´Ù.\n");
+            printf("ì˜ëª»ëœ ì„ íƒì…ë‹ˆë‹¤.\n");
             continue;
         }
 
         if (buyDrink(&money, prices, choice - 1)) {
-            printf("%s°¡ ³ª¿Ô½À´Ï´Ù! ÀÜ¾×: %d¿ø\n", items[choice - 1], money);
-        }
-        else {
-            printf("ÀÜ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù. ÇöÀç ÀÜ¾×: %d¿ø\n", money);
+            printf("%sê°€ ë‚˜ì™”ìŠµë‹ˆë‹¤! ì”ì•¡: %dì›\n", items[choice - 1], money);
+        } else {
+            printf("ì”ì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤. í˜„ì¬ ì”ì•¡: %dì›\n", money);
         }
     }
 
     return 0;
 }
 
-
-void showMenu(char* items[], int* prices) {
-    printf("\n--- À½·á ¸ñ·Ï ---\n");
+void showMenu(char* items[], int* prices, int money) {
+    printf("\n--- ìŒë£Œ ëª©ë¡ ---\n");
     for (int i = 0; i < ITEM_COUNT; i++) {
-        printf("%d. %s - %d¿ø\n", i + 1, *(items + i), *(prices + i));
+        printf("%d. %s - %dì›\n", i + 1, *(items + i), *(prices + i));
     }
+    printf("-----------------\n");
+    printf("í˜„ì¬ ì”ì•¡: %dì›\n\n", money);
 }
-
 
 int buyDrink(int* money, int* prices, int choice) {
     if (*money >= *(prices + choice)) {
         *money -= *(prices + choice);
-        return 1; // ¼º°ø
+        return 1; // ì„±ê³µ
     }
-    return 0; // ½ÇÆĞ
+    return 0; // ì‹¤íŒ¨
 }
